@@ -140,7 +140,9 @@ public class PerServerConnectionPool implements IConnectionPool
         removeIdleStateHandler(conn);
 
         conn.setInUse();
-        if (LOG.isDebugEnabled()) LOG.debug("PooledConnection acquired: " + conn.toString());
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("PooledConnection acquired: " + conn.toString());
+        }
     }
 
     protected void removeIdleStateHandler(PooledConnection conn) {

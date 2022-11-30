@@ -62,11 +62,8 @@ public class ZuulFiltersModule extends AbstractModule {
         // Get filter directories.
         String[] filterLocations = findFilterLocations(config);
         String[] filterClassNames = findClassNames(config);
-
         // Init the FilterStore.
-        FilterFileManagerConfig filterConfig =
-            new FilterFileManagerConfig(filterLocations, filterClassNames, 5, filenameFilter);
-        return filterConfig;
+        return new FilterFileManagerConfig(filterLocations, filterClassNames, 5, filenameFilter);
     }
 
     // Get compiled filter classes to be found on classpath.

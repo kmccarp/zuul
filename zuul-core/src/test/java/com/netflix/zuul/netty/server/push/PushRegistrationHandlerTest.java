@@ -55,7 +55,7 @@ import org.mockito.MockitoAnnotations;
  */
 public class PushRegistrationHandlerTest {
 
-    private static ExecutorService EXECUTOR;
+    private static ExecutorService executor;
 
     @Captor
     private ArgumentCaptor<Runnable> scheduledCaptor;
@@ -82,12 +82,12 @@ public class PushRegistrationHandlerTest {
 
     @BeforeClass
     public static void classSetup() {
-        EXECUTOR = Executors.newSingleThreadExecutor();
+        executor = Executors.newSingleThreadExecutor();
     }
 
     @AfterClass
     public static void classCleanup() {
-        MoreExecutors.shutdownAndAwaitTermination(EXECUTOR, 5, TimeUnit.SECONDS);
+        MoreExecutors.shutdownAndAwaitTermination(executor, 5, TimeUnit.SECONDS);
     }
 
     @Before
@@ -97,7 +97,7 @@ public class PushRegistrationHandlerTest {
         handler = new PushRegistrationHandler(registry, PushProtocol.WEBSOCKET);
         successfulAuth = new TestAuth(true);
 
-        eventLoopSpy = spy(new DefaultEventLoop(EXECUTOR));
+        eventLoopSpy = spy(new DefaultEventLoop(executor));
         doReturn(eventLoopSpy).when(context).executor();
         doReturn(channelFuture).when(context).writeAndFlush(writeCaptor.capture());
         doReturn(pipelineMock).when(context).pipeline();

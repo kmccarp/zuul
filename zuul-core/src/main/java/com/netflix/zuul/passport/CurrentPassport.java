@@ -77,7 +77,9 @@ public class CurrentPassport
             historyLock.unlock();
         }
     }
-    private final static class IntrospectiveReentrantLock extends ReentrantLock {
+    private static final class IntrospectiveReentrantLock extends ReentrantLock {
+
+        private static final long serialVersionUID = 1;
 
         @Override
         protected Thread getOwner() {
@@ -429,7 +431,7 @@ public class CurrentPassport
                     Matcher stateMatch = ptnState.matcher(stateStr);
                     if (stateMatch.matches()) {
                         String stateName = stateMatch.group(2);
-                        if (stateName.equals("NOW")) {
+                        if ("NOW".equals(stateName)) {
                             long startTime = passport.history.size() > 0 ? passport.firstTime() : 0;
                             long now = Long.valueOf(stateMatch.group(1)) + startTime;
                             ticker.setNow(now);
@@ -467,17 +469,17 @@ public class CurrentPassport
 
 class CountingCurrentPassport extends CurrentPassport
 {
-    private final static Counter IN_REQ_HEADERS_RECEIVED_CNT = createCounter("in_req_hdrs_rec");
-    private final static Counter IN_REQ_LAST_CONTENT_RECEIVED_CNT = createCounter("in_req_last_cont_rec");
+    private static final Counter IN_REQ_HEADERS_RECEIVED_CNT = createCounter("in_req_hdrs_rec");
+    private static final Counter IN_REQ_LAST_CONTENT_RECEIVED_CNT = createCounter("in_req_last_cont_rec");
 
-    private final static Counter IN_RESP_HEADERS_RECEIVED_CNT = createCounter("in_resp_hdrs_rec");
-    private final static Counter IN_RESP_LAST_CONTENT_RECEIVED_CNT = createCounter("in_resp_last_cont_rec");
+    private static final Counter IN_RESP_HEADERS_RECEIVED_CNT = createCounter("in_resp_hdrs_rec");
+    private static final Counter IN_RESP_LAST_CONTENT_RECEIVED_CNT = createCounter("in_resp_last_cont_rec");
 
-    private final static Counter OUT_REQ_HEADERS_SENT_CNT = createCounter("out_req_hdrs_sent");
-    private final static Counter OUT_REQ_LAST_CONTENT_SENT_CNT = createCounter("out_req_last_cont_sent");
+    private static final Counter OUT_REQ_HEADERS_SENT_CNT = createCounter("out_req_hdrs_sent");
+    private static final Counter OUT_REQ_LAST_CONTENT_SENT_CNT = createCounter("out_req_last_cont_sent");
 
-    private final static Counter OUT_RESP_HEADERS_SENT_CNT = createCounter("out_resp_hdrs_sent");
-    private final static Counter OUT_RESP_LAST_CONTENT_SENT_CNT = createCounter("out_resp_last_cont_sent");
+    private static final Counter OUT_RESP_HEADERS_SENT_CNT = createCounter("out_resp_hdrs_sent");
+    private static final Counter OUT_RESP_LAST_CONTENT_SENT_CNT = createCounter("out_resp_last_cont_sent");
 
     private static Counter createCounter(String name)
     {

@@ -35,8 +35,8 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public abstract class AbstrHttpConnectionExpiryHandler extends ChannelOutboundHandlerAdapter
 {
-    protected final static Logger LOG = LoggerFactory.getLogger(AbstrHttpConnectionExpiryHandler.class);
-    protected final static CachedDynamicLongProperty MAX_EXPIRY_DELTA = new CachedDynamicLongProperty(
+    protected static final Logger LOG = LoggerFactory.getLogger(AbstrHttpConnectionExpiryHandler.class);
+    protected static final CachedDynamicLongProperty MAX_EXPIRY_DELTA = new CachedDynamicLongProperty(
             "server.connection.expiry.delta", 20 * 1000);
 
     protected final ConnectionCloseType connectionCloseType;
@@ -45,8 +45,8 @@ public abstract class AbstrHttpConnectionExpiryHandler extends ChannelOutboundHa
     protected final long connectionStartTime;
     protected final long connectionExpiryTime;
 
-    protected int requestCount = 0;
-    protected int maxRequestsUnderBrownout = 0;
+    protected int requestCount;
+    protected int maxRequestsUnderBrownout;
 
     public AbstrHttpConnectionExpiryHandler(ConnectionCloseType connectionCloseType, int maxRequestsUnderBrownout, int maxRequests, int maxExpiry)
     {

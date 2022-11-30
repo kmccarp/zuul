@@ -63,11 +63,11 @@ public class PooledConnection {
 
 
     private ConnectionState connectionState;
-    private long usageCount = 0;
+    private long usageCount;
     private long reqStartTime;
-    private boolean inPool = false;
-    private boolean shouldClose = false;
-    private boolean released = false;
+    private boolean inPool;
+    private boolean shouldClose;
+    private boolean released;
 
     public PooledConnection(final Channel channel, final DiscoveryResult server, final ClientChannelManager channelManager,
                      final Counter closeConnCounter, 
@@ -144,7 +144,7 @@ public class PooledConnection {
     }
 
     public boolean isActive() {
-        return (channel.isActive() && channel.isRegistered());
+        return channel.isActive() && channel.isRegistered();
     }
 
     public boolean isInPool()

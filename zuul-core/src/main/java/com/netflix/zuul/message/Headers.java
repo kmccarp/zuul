@@ -343,7 +343,7 @@ public final class Headers {
     public boolean setIfAbsentAndValid(HeaderName headerName, String value) {
         requireNonNull(value, "value");
         requireNonNull(headerName, "headerName");
-        if (isValid(headerName.getName()) && isValid((value))) {
+        if (isValid(headerName.getName()) && isValid(value)) {
             String normalName = headerName.getNormalised();
             return setIfAbsentNormal(headerName.getName(), normalName, value);
         }

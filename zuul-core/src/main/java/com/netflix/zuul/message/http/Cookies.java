@@ -57,7 +57,7 @@ public class Cookies
     public Cookie getFirst(String name)
     {
         List<Cookie> found = map.get(name);
-        if (found == null || found.size() == 0) {
+        if (found == null || found.isEmpty()) {
             return null;
         }
         return found.get(0);

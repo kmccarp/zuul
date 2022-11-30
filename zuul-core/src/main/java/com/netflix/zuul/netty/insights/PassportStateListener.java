@@ -48,8 +48,9 @@ public class PassportStateListener implements GenericFutureListener
             passport.add(successState);
         }
         else {
-            if (failState != null)
+            if (failState != null) {
                 passport.add(failState);
+            }
         }
     }
 }

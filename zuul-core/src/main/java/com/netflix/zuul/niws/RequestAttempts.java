@@ -35,6 +35,7 @@ import java.util.ArrayList;
  */
 public class RequestAttempts extends ArrayList<RequestAttempt>
 {
+    private static final long serialVersionUID = 1;
     private static final Logger LOG = LoggerFactory.getLogger(RequestAttempts.class);
     private static final ObjectMapper JACKSON_MAPPER = new ObjectMapper();
 

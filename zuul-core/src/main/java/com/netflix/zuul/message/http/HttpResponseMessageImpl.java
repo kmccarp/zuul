@@ -44,7 +44,7 @@ public class HttpResponseMessageImpl implements HttpResponseMessage
     private ZuulMessage message;
     private HttpRequestMessage outboundRequest;
     private int status;
-    private HttpResponseInfo inboundResponse = null;
+    private HttpResponseInfo inboundResponse;
 
     public HttpResponseMessageImpl(SessionContext context, HttpRequestMessage request, int status)
     {

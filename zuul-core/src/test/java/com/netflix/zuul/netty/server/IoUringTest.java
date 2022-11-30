@@ -91,7 +91,7 @@ public class IoUringTest {
 
         Map<NamedSocketAddress, ChannelInitializer<?>> initializers = new HashMap<>();
 
-        final List<IOUringSocketChannel> ioUringChannels = Collections.synchronizedList(new ArrayList<IOUringSocketChannel>());
+        final List<IOUringSocketChannel> ioUringChannels = Collections.synchronizedList(new ArrayList<>());
 
         ChannelInitializer<Channel> init = new ChannelInitializer<Channel>() {
             @Override
@@ -136,7 +136,7 @@ public class IoUringTest {
 
         addresses.forEach(address -> {
             assertTrue(address.unwrap() instanceof InetSocketAddress);
-            InetSocketAddress inetAddress = ((InetSocketAddress) address.unwrap());
+            InetSocketAddress inetAddress = (InetSocketAddress) address.unwrap();
             assertNotEquals(inetAddress.getPort(), 0);
             checkConnection(inetAddress.getPort());
         });

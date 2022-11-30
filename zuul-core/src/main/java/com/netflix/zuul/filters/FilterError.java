@@ -24,7 +24,7 @@ public class FilterError implements Cloneable
 {
     private String filterName;
     private String filterType;
-    private Throwable exception = null;
+    private Throwable exception;
 
     public FilterError(String filterName, String filterType, Throwable exception) {
         this.filterName = filterName;

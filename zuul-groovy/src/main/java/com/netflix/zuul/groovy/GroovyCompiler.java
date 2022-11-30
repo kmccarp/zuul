@@ -42,8 +42,7 @@ public class GroovyCompiler implements DynamicCodeCompiler {
     public Class<?> compile(String sCode, String sName) {
         GroovyClassLoader loader = getGroovyClassLoader();
         LOG.warn("Compiling filter: " + sName);
-        Class<?> groovyClass = loader.parseClass(sCode, sName);
-        return groovyClass;
+        return loader.parseClass(sCode, sName);
     }
 
     /**
@@ -59,8 +58,7 @@ public class GroovyCompiler implements DynamicCodeCompiler {
      */
     public Class<?> compile(File file) throws IOException {
         GroovyClassLoader loader = getGroovyClassLoader();
-        Class<?> groovyClass = loader.parseClass(file);
-        return groovyClass;
+        return loader.parseClass(file);
     }
 }
 
