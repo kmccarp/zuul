@@ -71,7 +71,7 @@ public class DefaultClientChannelManager implements ClientChannelManager {
     private final OriginName originName;
 
     private static final Throwable SHUTTING_DOWN_ERR = new IllegalStateException("ConnectionPool is shutting down now.");
-    private volatile boolean shuttingDown = false;
+    private volatile boolean shuttingDown;
 
     private final Counter createNewConnCounter;
     private final Counter createConnSucceededCounter;
@@ -275,7 +275,9 @@ public class DefaultClientChannelManager implements ClientChannelManager {
                 conn.close();
             }
 
-            if (LOG.isDebugEnabled()) LOG.debug("PooledConnection released: {}", conn.toString());
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("PooledConnection released: {}", conn.toString());
+            }
         }
 
         return released;

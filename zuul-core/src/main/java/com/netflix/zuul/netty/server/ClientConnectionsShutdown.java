@@ -94,9 +94,7 @@ public class ClientConnectionsShutdown
 
                     // Schedule to gracefully close all the client connections.
                     if (ENABLED.get()) {
-                        executor.schedule(() -> {
-                            gracefullyShutdownClientChannels();
-                        }, DELAY_AFTER_OUT_OF_SERVICE_MS.get(), TimeUnit.MILLISECONDS);
+                        executor.schedule(this::gracefullyShutdownClientChannels, DELAY_AFTER_OUT_OF_SERVICE_MS.get(), TimeUnit.MILLISECONDS);
                     }
                 }
             }

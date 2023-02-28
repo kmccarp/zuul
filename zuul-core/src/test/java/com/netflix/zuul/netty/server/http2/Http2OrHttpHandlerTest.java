@@ -53,7 +53,7 @@ class Http2OrHttpHandlerTest {
         Http2MetricsChannelHandlers http2MetricsChannelHandlers = new Http2MetricsChannelHandlers(registry, "server",
                 "http2-443");
         final Http2OrHttpHandler http2OrHttpHandler = new Http2OrHttpHandler(
-                new Http2StreamInitializer(channel, (x) -> {
+                new Http2StreamInitializer(channel, x -> {
                 }, http2MetricsChannelHandlers, connectionCloseHandler, connectionExpiryHandler),
                 channelConfig,
                 cp -> {

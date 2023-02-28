@@ -55,7 +55,7 @@ public class HttpHeaderNamesCache
                 hn = new HeaderName(name);
             }
             else {
-                hn = cache.computeIfAbsent(name, (newName) -> new HeaderName(newName));
+                hn = cache.computeIfAbsent(name, HeaderName::new);
             }
         }
         return hn;

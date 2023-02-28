@@ -43,7 +43,7 @@ import java.util.stream.Stream;
 public class ZuulFiltersModule extends AbstractModule {
     private static final Logger LOG = LoggerFactory.getLogger(ZuulFiltersModule.class);
 
-    private static Predicate<String> blank = String::isEmpty;
+    private static final Predicate<String> blank = String::isEmpty;
 
     @Override
     protected void configure() {
@@ -62,11 +62,8 @@ public class ZuulFiltersModule extends AbstractModule {
         // Get filter directories.
         String[] filterLocations = findFilterLocations(config);
         String[] filterClassNames = findClassNames(config);
-
         // Init the FilterStore.
-        FilterFileManagerConfig filterConfig =
-            new FilterFileManagerConfig(filterLocations, filterClassNames, 5, filenameFilter);
-        return filterConfig;
+        return new FilterFileManagerConfig(filterLocations, filterClassNames, 5, filenameFilter);
     }
 
     // Get compiled filter classes to be found on classpath.
