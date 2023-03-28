@@ -48,7 +48,7 @@ public enum FilterType
         case "end":
             return ENDPOINT;
         default:
-            throw new IllegalArgumentException("Unknown filter type! type=" + String.valueOf(str));
+            throw new IllegalArgumentException("Unknown filter type! type=" + str);
         }
     }
 }

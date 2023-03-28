@@ -30,7 +30,7 @@ import java.util.concurrent.TimeUnit;
 public class BasicRequestStat implements RequestStat {
 
     private volatile boolean isFinished;
-    private volatile Stopwatch stopwatch;
+    private final volatile Stopwatch stopwatch;
 
     public BasicRequestStat() {
         this.isFinished = false;

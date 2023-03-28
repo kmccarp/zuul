@@ -86,11 +86,11 @@ class IntegrationTest {
     }
 
 
-    static private Bootstrap bootstrap;
-    static private final int ZUUL_SERVER_PORT = findAvailableTcpPort();
+    private static Bootstrap bootstrap;
+    private static final int ZUUL_SERVER_PORT = findAvailableTcpPort();
 
-    static private final Duration CLIENT_READ_TIMEOUT = Duration.ofMillis(3000);
-    static private final Duration ORIGIN_READ_TIMEOUT = Duration.ofMillis(1000);
+    private static final Duration CLIENT_READ_TIMEOUT = Duration.ofMillis(3000);
+    private static final Duration ORIGIN_READ_TIMEOUT = Duration.ofMillis(1000);
     private final String zuulBaseUri = "http://localhost:" + ZUUL_SERVER_PORT;
     private String pathSegment;
     private WireMockRuntimeInfo wmRuntimeInfo;
@@ -157,7 +157,7 @@ class IntegrationTest {
     }
 
     static Stream<Arguments> arguments() {
-        List<Arguments> list = new ArrayList<Arguments>();
+        List<Arguments> list = new ArrayList<>();
         for (Protocol protocol : ImmutableSet.of(Protocol.HTTP_1_1)) {
             for (boolean requestBodyBuffering : ImmutableSet.of(Boolean.TRUE, Boolean.FALSE)) {
                 for (boolean responseBodyBuffering : ImmutableSet.of(Boolean.TRUE, Boolean.FALSE)) {
@@ -259,7 +259,7 @@ class IntegrationTest {
 
         Request request = setupRequestBuilder(requestBodyBuffering, responseBodyBuffering).get().build();
         Response response = okHttp.newCall(request).execute();
-        final int expectedStatusCode = (responseBodyBuffering) ? 504 : 200;
+        final int expectedStatusCode = responseBodyBuffering ? 504 : 200;
         assertThat(response.code()).isEqualTo(expectedStatusCode);
         response.close();
     }
@@ -326,7 +326,7 @@ class IntegrationTest {
 
         Request request = setupRequestBuilder(requestBodyBuffering, responseBodyBuffering).get().build();
         Response response = okHttp.newCall(request).execute();
-        final int expectedStatusCode = (responseBodyBuffering) ? 504 : 200;
+        final int expectedStatusCode = responseBodyBuffering ? 504 : 200;
         assertThat(response.code()).isEqualTo(expectedStatusCode);
         response.close();
     }
@@ -484,7 +484,7 @@ class IntegrationTest {
         }
     }
 
-    static private void verifyResponseHeaders(final Response response) {
+    private static void verifyResponseHeaders(final Response response) {
         assertThat(response.header(HeaderNames.REQUEST_ID)).startsWith("RQ-");
     }
 
