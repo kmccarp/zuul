@@ -30,7 +30,7 @@ public class Bootstrap {
     private static final Logger logger = LoggerFactory.getLogger(Bootstrap.class);
 
     private Server server;
-    private int exitCode = 0;
+    private int exitCode;
 
     public void start() {
         long startNanos = System.nanoTime();
@@ -57,7 +57,7 @@ public class Bootstrap {
     }
 
     public boolean isRunning() {
-        return (server != null) && (server.getListeningAddresses().size() > 0);
+        return (server != null) && (!server.getListeningAddresses().isEmpty());
     }
 
     public void stop() {

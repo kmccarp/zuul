@@ -22,6 +22,8 @@ import javax.annotation.CheckReturnValue;
 
 public final class NamedSocketAddress extends SocketAddress {
 
+    private static final long serialVersionUID = 1;
+
     private final String name;
     private final SocketAddress delegate;
 

@@ -324,7 +324,7 @@ public class Server
         private Class<? extends ServerChannel> channelType;
         private Map<ChannelOption<?>, ?> transportChannelOptions;
 
-        private volatile boolean stopped = false;
+        private volatile boolean stopped;
 
         private ServerGroup(String name, int acceptorThreads, int workerThreads, EventLoopGroupMetrics eventLoopGroupMetrics) {
             this.name = name;
@@ -332,10 +332,8 @@ public class Server
             this.workerThreads = workerThreads;
             this.eventLoopGroupMetrics = eventLoopGroupMetrics;
 
-            Thread.setDefaultUncaughtExceptionHandler(new Thread.UncaughtExceptionHandler() {
-                public void uncaughtException(final Thread t, final Throwable e) {
-                    LOG.error("Uncaught throwable", e);
-                }
+            Thread.setDefaultUncaughtExceptionHandler((t, e) -> {
+                LOG.error("Uncaught throwable", e);
             });
 
             Runtime.getRuntime().addShutdownHook(jvmShutdownHook);
@@ -411,7 +409,7 @@ public class Server
             postEventLoopCreationHook(clientToProxyBossPool, clientToProxyWorkerPool);
         }
 
-        synchronized private void stop()
+        private synchronized void stop()
         {
             LOG.info("Shutting down");
             if (stopped) {
