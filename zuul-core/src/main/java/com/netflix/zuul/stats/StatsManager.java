@@ -57,19 +57,19 @@ public class StatsManager {
 
     @VisibleForTesting
     final ConcurrentMap<String, ConcurrentHashMap<Integer, RouteStatusCodeMonitor>> routeStatusMap =
-            new ConcurrentHashMap<String, ConcurrentHashMap<Integer, RouteStatusCodeMonitor>>();
+            new ConcurrentHashMap<>();
 
     private final ConcurrentMap<String, NamedCountingMonitor> namedStatusMap =
-            new ConcurrentHashMap<String, NamedCountingMonitor>();
+            new ConcurrentHashMap<>();
 
     private final ConcurrentMap<String, NamedCountingMonitor> hostCounterMap =
-            new ConcurrentHashMap<String, NamedCountingMonitor>();
+            new ConcurrentHashMap<>();
 
     private final ConcurrentMap<String, NamedCountingMonitor> protocolCounterMap =
-            new ConcurrentHashMap<String, NamedCountingMonitor>();
+            new ConcurrentHashMap<>();
 
     private final ConcurrentMap<String, NamedCountingMonitor> ipVersionCounterMap =
-            new ConcurrentHashMap<String, NamedCountingMonitor>();
+            new ConcurrentHashMap<>();
 
 
     protected static StatsManager INSTANCE = new StatsManager();
@@ -85,7 +85,9 @@ public class StatsManager {
      */
     public RouteStatusCodeMonitor getRouteStatusCodeMonitor(String route, int statusCode) {
         Map<Integer, RouteStatusCodeMonitor> map = routeStatusMap.get(route);
-        if (map == null) return null;
+        if (map == null) {
+            return null;
+        }
         return map.get(statusCode);
     }
 
@@ -100,19 +102,31 @@ public class StatsManager {
     }
 
     @VisibleForTesting
-    static final String hostKey(String host) {
+    static String hostKey(String host) {
         try {
             final Matcher m = HOST_PATTERN.matcher(host);
 
             // I know which type of host matched by the number of the group that is non-null
             // I use a different replacement string per host type to make the Epic stats more clear
             if (m.matches()) {
-                if (m.group(1) != null) host = host.replace(m.group(1), "EC2");
-                else if (m.group(2) != null) host = host.replace(m.group(2), "IP");
-                else if (m.group(3) != null) host = host.replace(m.group(3), "IP");
-                else if (m.group(4) != null) host = host.replace(m.group(4), "CDN");
-                else if (m.group(5) != null) host = host.replace(m.group(5), "CDN");
-                else if (m.group(6) != null) host = host.replace(m.group(6), "CDN");
+                if (m.group(1) != null) {
+                    host = host.replace(m.group(1), "EC2");
+                }
+                else if (m.group(2) != null) {
+                    host = host.replace(m.group(2), "IP");
+                }
+                else if (m.group(3) != null) {
+                    host = host.replace(m.group(3), "IP");
+                }
+                else if (m.group(4) != null) {
+                    host = host.replace(m.group(4), "CDN");
+                }
+                else if (m.group(5) != null) {
+                    host = host.replace(m.group(5), "CDN");
+                }
+                else if (m.group(6) != null) {
+                    host = host.replace(m.group(6), "CDN");
+                }
             }
         } catch (Exception e) {
             LOG.error(e.getMessage(), e);
@@ -121,7 +135,7 @@ public class StatsManager {
         }
     }
 
-    private static final String protocolKey(String proto) {
+    private static String protocolKey(String proto) {
         return String.format("protocol_%s", proto);
     }
 
@@ -158,23 +172,27 @@ public class StatsManager {
                 // strips port from host
                 colonIdx = host.indexOf(":");
             }
-            if (colonIdx > -1) host = host.substring(0, colonIdx);
+            if (colonIdx > -1) {
+                host = host.substring(0, colonIdx);
+            }
             incrementNamedCountingMonitor(hostKey(host), this.hostCounterMap);
         }
 
         // http vs. https
         String protocol = req.getHeaders().getFirst(X_FORWARDED_PROTO_HEADER);
-        if (protocol == null) protocol = req.getScheme();
+        if (protocol == null) {
+            protocol = req.getScheme();
+        }
         incrementNamedCountingMonitor(protocolKey(protocol), this.protocolCounterMap);
     }
 
     @VisibleForTesting
-    static final boolean isIPv6(String ip) {
+    static boolean isIPv6(String ip) {
         return ip.split(":").length == 8;
     }
 
     @VisibleForTesting
-    static final String extractClientIpFromXForwardedFor(String xForwardedFor) {
+    static String extractClientIpFromXForwardedFor(String xForwardedFor) {
         return xForwardedFor.split(",")[0];
     }
 
@@ -186,8 +204,12 @@ public class StatsManager {
         if (monitor == null) {
             monitor = new NamedCountingMonitor(name);
             NamedCountingMonitor conflict = map.putIfAbsent(name, monitor);
-            if (conflict != null) monitor = conflict;
-            else MonitorRegistry.getInstance().registerObject(monitor);
+            if (conflict != null) {
+                monitor = conflict;
+            }
+            else {
+                MonitorRegistry.getInstance().registerObject(monitor);
+            }
         }
         monitor.increment();
     }
@@ -206,8 +228,12 @@ public class StatsManager {
         if (preciseStatus == null) {
             preciseStatus = new NamedCountingMonitor(preciseStatusString);
             NamedCountingMonitor found = namedStatusMap.putIfAbsent(preciseStatusString, preciseStatus);
-            if (found != null) preciseStatus = found;
-            else MonitorRegistry.getInstance().registerObject(preciseStatus);
+            if (found != null) {
+                preciseStatus = found;
+            }
+            else {
+                MonitorRegistry.getInstance().registerObject(preciseStatus);
+            }
         }
         preciseStatus.increment();
 
@@ -217,17 +243,23 @@ public class StatsManager {
         if (summaryStatus == null) {
             summaryStatus = new NamedCountingMonitor(summaryStatusString);
             NamedCountingMonitor found = namedStatusMap.putIfAbsent(summaryStatusString, summaryStatus);
-            if (found != null) summaryStatus = found;
-            else MonitorRegistry.getInstance().registerObject(summaryStatus);
+            if (found != null) {
+                summaryStatus = found;
+            }
+            else {
+                MonitorRegistry.getInstance().registerObject(summaryStatus);
+            }
         }
         summaryStatus.increment();
 
         // increments route and status counter
-        if (route == null) route = "ROUTE_NOT_FOUND";
+        if (route == null) {
+            route = "ROUTE_NOT_FOUND";
+        }
         route = route.replace("/", "_");
         ConcurrentHashMap<Integer, RouteStatusCodeMonitor> statsMap = routeStatusMap.get(route);
         if (statsMap == null) {
-            statsMap = new ConcurrentHashMap<Integer, RouteStatusCodeMonitor>();
+            statsMap = new ConcurrentHashMap<>();
             routeStatusMap.putIfAbsent(route, statsMap);
         }
         RouteStatusCodeMonitor sd = statsMap.get(statusCode);

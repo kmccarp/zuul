@@ -30,7 +30,7 @@ final class TopLevelFilter extends TestFilter {
 
     @SuppressWarnings("unused") // This should be ignored by the processor, since it is abstract
     @Filter(order = 22, type = FilterType.INBOUND)
-    static abstract class AbstractSubclassFilter extends TestFilter {}
+    abstract static class AbstractSubclassFilter extends TestFilter {}
 
     @SuppressWarnings("InnerClassMayBeStatic") // The purpose of this test
     @Filter(order = 23, type = FilterType.INBOUND)

@@ -32,7 +32,7 @@ class JsonUtilityTest {
 
     @Test
     void testSimpleOne() {
-        Map<String, Object> jsonData = new LinkedHashMap<String, Object>();
+        Map<String, Object> jsonData = new LinkedHashMap<>();
         jsonData.put("myKey", "myValue");
 
         String json = JsonUtility.jsonFromMap(jsonData);
@@ -43,7 +43,7 @@ class JsonUtilityTest {
 
     @Test
     void testSimpleTwo() {
-        Map<String, Object> jsonData = new LinkedHashMap<String, Object>();
+        Map<String, Object> jsonData = new LinkedHashMap<>();
         jsonData.put("myKey", "myValue");
         jsonData.put("myKey2", "myValue2");
 
@@ -55,10 +55,10 @@ class JsonUtilityTest {
 
     @Test
     void testNestedMapOne() {
-        Map<String, Object> jsonData = new LinkedHashMap<String, Object>();
+        Map<String, Object> jsonData = new LinkedHashMap<>();
         jsonData.put("myKey", "myValue");
 
-        Map<String, Object> jsonData2 = new LinkedHashMap<String, Object>();
+        Map<String, Object> jsonData2 = new LinkedHashMap<>();
         jsonData2.put("myNestedKey", "myNestedValue");
 
         jsonData.put("myNestedData", jsonData2);
@@ -71,10 +71,10 @@ class JsonUtilityTest {
 
     @Test
     void testNestedMapTwo() {
-        Map<String, Object> jsonData = new LinkedHashMap<String, Object>();
+        Map<String, Object> jsonData = new LinkedHashMap<>();
         jsonData.put("myKey", "myValue");
 
-        Map<String, Object> jsonData2 = new LinkedHashMap<String, Object>();
+        Map<String, Object> jsonData2 = new LinkedHashMap<>();
         jsonData2.put("myNestedKey", "myNestedValue");
         jsonData2.put("myNestedKey2", "myNestedValue2");
 
@@ -88,7 +88,7 @@ class JsonUtilityTest {
 
     @Test
     void testArrayOne() {
-        Map<String, Object> jsonData = new LinkedHashMap<String, Object>();
+        Map<String, Object> jsonData = new LinkedHashMap<>();
         int[] numbers = {1, 2, 3, 4};
         jsonData.put("myKey", numbers);
 
@@ -100,7 +100,7 @@ class JsonUtilityTest {
 
     @Test
     void testArrayTwo() {
-        Map<String, Object> jsonData = new LinkedHashMap<String, Object>();
+        Map<String, Object> jsonData = new LinkedHashMap<>();
         String[] values = {"one", "two", "three", "four"};
         jsonData.put("myKey", values);
 
@@ -112,8 +112,8 @@ class JsonUtilityTest {
 
     @Test
     void testCollectionOne() {
-        Map<String, Object> jsonData = new LinkedHashMap<String, Object>();
-        ArrayList<String> values = new ArrayList<String>();
+        Map<String, Object> jsonData = new LinkedHashMap<>();
+        ArrayList<String> values = new ArrayList<>();
         values.add("one");
         values.add("two");
         values.add("three");
@@ -128,12 +128,12 @@ class JsonUtilityTest {
 
     @Test
     void testMapAndList() {
-        Map<String, Object> jsonData = new LinkedHashMap<String, Object>();
+        Map<String, Object> jsonData = new LinkedHashMap<>();
         jsonData.put("myKey", "myValue");
         int[] numbers = {1, 2, 3, 4};
         jsonData.put("myNumbers", numbers);
 
-        Map<String, Object> jsonData2 = new LinkedHashMap<String, Object>();
+        Map<String, Object> jsonData2 = new LinkedHashMap<>();
         jsonData2.put("myNestedKey", "myNestedValue");
         jsonData2.put("myNestedKey2", "myNestedValue2");
         String[] values = {"one", "two", "three", "four"};
@@ -149,15 +149,15 @@ class JsonUtilityTest {
 
     @Test
     void testArrayOfMaps() {
-        Map<String, Object> jsonData = new LinkedHashMap<String, Object>();
-        ArrayList<Map<String, Object>> messages = new ArrayList<Map<String, Object>>();
+        Map<String, Object> jsonData = new LinkedHashMap<>();
+        ArrayList<Map<String, Object>> messages = new ArrayList<>();
 
-        Map<String, Object> message1 = new LinkedHashMap<String, Object>();
+        Map<String, Object> message1 = new LinkedHashMap<>();
         message1.put("a", "valueA1");
         message1.put("b", "valueB1");
         messages.add(message1);
 
-        Map<String, Object> message2 = new LinkedHashMap<String, Object>();
+        Map<String, Object> message2 = new LinkedHashMap<>();
         message2.put("a", "valueA2");
         message2.put("b", "valueB2");
         messages.add(message2);
