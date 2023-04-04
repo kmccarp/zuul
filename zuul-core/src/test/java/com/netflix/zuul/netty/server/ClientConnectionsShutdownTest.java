@@ -63,19 +63,19 @@ import org.mockito.Mockito;
 class ClientConnectionsShutdownTest {
 
     //using LocalChannels instead of EmbeddedChannels to re-create threading behavior in an actual deployment
-    private static LocalAddress LOCAL_ADDRESS;
-    private static DefaultEventLoopGroup SERVER_EVENT_LOOP;
-    private static DefaultEventLoopGroup CLIENT_EVENT_LOOP;
+    private static LocalAddress localAddress;
+    private static DefaultEventLoopGroup serverEventLoop;
+    private static DefaultEventLoopGroup clientEventLoop;
     private static DefaultEventLoop EVENT_LOOP;
 
     @BeforeAll
     static void staticSetup() throws InterruptedException {
-        LOCAL_ADDRESS = new LocalAddress(UUID.randomUUID().toString());
+        localAddress = new LocalAddress(UUID.randomUUID().toString());
 
-        CLIENT_EVENT_LOOP = new DefaultEventLoopGroup(4);
-        SERVER_EVENT_LOOP = new DefaultEventLoopGroup(4);
-        ServerBootstrap serverBootstrap = new ServerBootstrap().group(SERVER_EVENT_LOOP)
-                                                               .localAddress(LOCAL_ADDRESS)
+        clientEventLoop = new DefaultEventLoopGroup(4);
+        serverEventLoop = new DefaultEventLoopGroup(4);
+        ServerBootstrap serverBootstrap = new ServerBootstrap().group(serverEventLoop)
+                                                               .localAddress(localAddress)
                                                                .channel(LocalServerChannel.class)
                                                                .childHandler(new ChannelInitializer<LocalChannel>() {
                                                                    @Override
@@ -90,8 +90,8 @@ class ClientConnectionsShutdownTest {
 
     @AfterAll
     static void staticCleanup() {
-        CLIENT_EVENT_LOOP.shutdownGracefully();
-        SERVER_EVENT_LOOP.shutdownGracefully();
+        clientEventLoop.shutdownGracefully();
+        serverEventLoop.shutdownGracefully();
         EVENT_LOOP.shutdownGracefully();
     }
 
@@ -203,10 +203,10 @@ class ClientConnectionsShutdownTest {
 
         for (int i = 0; i < numChannels; ++i) {
             ChannelFuture connect = new Bootstrap()
-                    .group(CLIENT_EVENT_LOOP)
+                    .group(clientEventLoop)
                     .channel(LocalChannel.class)
                     .handler(initializer)
-                    .remoteAddress(LOCAL_ADDRESS)
+                    .remoteAddress(localAddress)
                     .connect()
                     .sync();
 

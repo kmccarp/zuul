@@ -13,7 +13,7 @@
  *      See the License for the specific language governing permissions and
  *      limitations under the License.
  */
-package com.netflix.zuul.scriptManager;
+package com.netflix.zuul.scriptmanager;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.netflix.zuul.ZuulApplicationInfo;
@@ -52,9 +52,9 @@ public class FilterVerifier {
         BaseFilter filter = (BaseFilter) instance;
 
 
-        String filter_id = FilterInfo.buildFilterID(ZuulApplicationInfo.getApplicationName(), filter.filterType(), groovyClass.getSimpleName());
+        String filterId = FilterInfo.buildFilterID(ZuulApplicationInfo.getApplicationName(), filter.filterType(), groovyClass.getSimpleName());
 
-        return new FilterInfo(filter_id, sFilterCode, filter.filterType(), groovyClass.getSimpleName(), filter.disablePropertyName(), "" + filter.filterOrder(), ZuulApplicationInfo.getApplicationName());
+        return new FilterInfo(filterId, sFilterCode, filter.filterType(), groovyClass.getSimpleName(), filter.disablePropertyName(), "" + filter.filterOrder(), ZuulApplicationInfo.getApplicationName());
     }
 
     Object instantiateClass(Class<?> groovyClass) throws InstantiationException, IllegalAccessException {
