@@ -65,18 +65,19 @@ public class ServerStartup extends BaseServerStartup {
     private static final String[] WWW_PROTOCOLS = new String[]{"TLSv1.3", "TLSv1.2", "TLSv1.1", "TLSv1", "SSLv3"};
     private static final ServerType SERVER_TYPE = ServerType.HTTP;
     private final PushConnectionRegistry pushConnectionRegistry;
+
 //    private final SamplePushMessageSenderInitializer pushSenderInitializer;
 
     @Inject
     public ServerStartup(ServerStatusManager serverStatusManager, FilterLoader filterLoader,
-                         SessionContextDecorator sessionCtxDecorator, FilterUsageNotifier usageNotifier,
-                         RequestCompleteHandler reqCompleteHandler, Registry registry,
-                         DirectMemoryMonitor directMemoryMonitor, EventLoopGroupMetrics eventLoopGroupMetrics,
-                         EurekaClient discoveryClient, ApplicationInfoManager applicationInfoManager,
-                         AccessLogPublisher accessLogPublisher, PushConnectionRegistry pushConnectionRegistry) {
+        SessionContextDecorator sessionCtxDecorator, FilterUsageNotifier usageNotifier,
+        RequestCompleteHandler reqCompleteHandler, Registry registry,
+        DirectMemoryMonitor directMemoryMonitor, EventLoopGroupMetrics eventLoopGroupMetrics,
+        EurekaClient discoveryClient, ApplicationInfoManager applicationInfoManager,
+        AccessLogPublisher accessLogPublisher, PushConnectionRegistry pushConnectionRegistry) {
         super(serverStatusManager, filterLoader, sessionCtxDecorator, usageNotifier, reqCompleteHandler, registry,
-                directMemoryMonitor, eventLoopGroupMetrics, discoveryClient, applicationInfoManager,
-                accessLogPublisher);
+            directMemoryMonitor, eventLoopGroupMetrics, discoveryClient, applicationInfoManager,
+            accessLogPublisher);
         this.pushConnectionRegistry = pushConnectionRegistry;
         // this.pushSenderInitializer = pushSenderInitializer;
     }
@@ -102,7 +103,7 @@ public class ServerStartup extends BaseServerStartup {
         {
             int pushPort = new DynamicIntProperty("zuul.server.port.http.push", 7008).get();
             pushSockAddr = new SocketAddressProperty(
-                    "zuul.server.addr.http.push", "="  + pushPort).getValue();
+                "zuul.server.addr.http.push", "="  + pushPort).getValue();
         }
 
         String mainListenAddressName = "main";
@@ -124,16 +125,16 @@ public class ServerStartup extends BaseServerStartup {
                 channelConfig.set(CommonChannelConfigKeys.withProxyProtocol, false);
 
                 addrsToChannels.put(
-                        new NamedSocketAddress("http", sockAddr),
-                        new ZuulServerChannelInitializer(
-                                metricId, channelConfig, channelDependencies, clientChannels) {
-                            @Override
-                            protected void addHttp1Handlers(ChannelPipeline pipeline)
-                            {
-                                super.addHttp1Handlers(pipeline);
-                                pipeline.addLast(new HttpContentCompressor((CompressionOptions[]) null));
-                            }
-                        });
+                    new NamedSocketAddress("http", sockAddr),
+                    new ZuulServerChannelInitializer(
+                        metricId, channelConfig, channelDependencies, clientChannels) {
+                        @Override
+                        protected void addHttp1Handlers(ChannelPipeline pipeline)
+                        {
+                            super.addHttp1Handlers(pipeline);
+                            pipeline.addLast(new HttpContentCompressor((CompressionOptions[]) null));
+                        }
+                    });
                 logAddrConfigured(sockAddr);
                 break;
 
@@ -142,9 +143,9 @@ public class ServerStartup extends BaseServerStartup {
              */
             case HTTP2:
                 sslConfig = ServerSslConfig.withDefaultCiphers(
-                        loadFromResources("server.cert"),
-                        loadFromResources("server.key"),
-                        WWW_PROTOCOLS);
+                    loadFromResources("server.cert"),
+                    loadFromResources("server.key"),
+                    WWW_PROTOCOLS);
 
                 channelConfig.set(CommonChannelConfigKeys.allowProxyHeadersWhen, StripUntrustedProxyHeadersHandler.AllowWhen.NEVER);
                 channelConfig.set(CommonChannelConfigKeys.preferProxyProtocolForClientIp, true);
@@ -155,9 +156,9 @@ public class ServerStartup extends BaseServerStartup {
                 addHttp2DefaultConfig(channelConfig, mainListenAddressName);
 
                 addrsToChannels.put(
-                        new NamedSocketAddress("http2", sockAddr),
-                        new Http2SslChannelInitializer(
-                                metricId, channelConfig, channelDependencies, clientChannels));
+                    new NamedSocketAddress("http2", sockAddr),
+                    new Http2SslChannelInitializer(
+                        metricId, channelConfig, channelDependencies, clientChannels));
                 logAddrConfigured(sockAddr, sslConfig);
                 break;
 
@@ -169,14 +170,14 @@ public class ServerStartup extends BaseServerStartup {
              */
             case HTTP_MUTUAL_TLS:
                 sslConfig = new ServerSslConfig(
-                        WWW_PROTOCOLS,
-                        ServerSslConfig.getDefaultCiphers(),
-                        loadFromResources("server.cert"),
-                        loadFromResources("server.key"),
-                        ClientAuth.REQUIRE,
-                        loadFromResources("truststore.jks"),
-                        loadFromResources("truststore.key"),
-                        false);
+                    WWW_PROTOCOLS,
+                    ServerSslConfig.getDefaultCiphers(),
+                    loadFromResources("server.cert"),
+                    loadFromResources("server.key"),
+                    ClientAuth.REQUIRE,
+                    loadFromResources("truststore.jks"),
+                    loadFromResources("truststore.key"),
+                    false);
 
                 channelConfig.set(CommonChannelConfigKeys.allowProxyHeadersWhen, StripUntrustedProxyHeadersHandler.AllowWhen.NEVER);
                 channelConfig.set(CommonChannelConfigKeys.preferProxyProtocolForClientIp, true);
@@ -186,9 +187,9 @@ public class ServerStartup extends BaseServerStartup {
                 channelConfig.set(CommonChannelConfigKeys.sslContextFactory, new BaseSslContextFactory(registry, sslConfig));
 
                 addrsToChannels.put(
-                        new NamedSocketAddress("http_mtls", sockAddr),
-                        new Http1MutualSslChannelInitializer(
-                                metricId, channelConfig, channelDependencies, clientChannels));
+                    new NamedSocketAddress("http_mtls", sockAddr),
+                    new Http1MutualSslChannelInitializer(
+                        metricId, channelConfig, channelDependencies, clientChannels));
                 logAddrConfigured(sockAddr, sslConfig);
                 break;
 

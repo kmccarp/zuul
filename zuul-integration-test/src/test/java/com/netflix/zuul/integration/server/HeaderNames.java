@@ -17,7 +17,8 @@
 package com.netflix.zuul.integration.server;
 
 public class HeaderNames {
-    private HeaderNames() { }
+    private HeaderNames() {
+    }
 
     public static final String REQUEST_ID = "request-id";
 }

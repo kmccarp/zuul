@@ -24,7 +24,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
 public class TestUtil {
-    private TestUtil() { }
+    private TestUtil() {
+    }
 
     public static final Charset CHARSET = StandardCharsets.UTF_8;
 
@@ -33,32 +34,32 @@ public class TestUtil {
 
     public static DiscoveryEnabledServer makeDiscoveryEnabledServer(final String appName, final String ipAddress, final int port) {
         InstanceInfo instanceInfo = new InstanceInfo(
-                UUID.randomUUID().toString(),
-                appName,
-                appName,
-                ipAddress,
-                "sid123",
-                new InstanceInfo.PortWrapper(true, port),
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                1,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null
+            UUID.randomUUID().toString(),
+            appName,
+            appName,
+            ipAddress,
+            "sid123",
+            new InstanceInfo.PortWrapper(true, port),
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            1,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
         );
         return new DiscoveryEnabledServer(instanceInfo, false, true);
     }

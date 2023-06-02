@@ -49,8 +49,8 @@ public class FilterLoaderProvider
 
     public FilterLoader get() {
         StaticFilterLoader loader = new StaticFilterLoader(
-                new DefaultFilterFactory(),
-                FILTER_TYPES);
+            new DefaultFilterFactory(),
+            FILTER_TYPES);
         return loader;
     }
 }

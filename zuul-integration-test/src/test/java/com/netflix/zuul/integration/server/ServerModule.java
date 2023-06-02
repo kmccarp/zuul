@@ -43,9 +43,9 @@ public class ServerModule extends AbstractModule {
     @Override
     protected void configure() {
         try {
-          ConfigurationManager.loadCascadedPropertiesFromResources("application");
+            ConfigurationManager.loadCascadedPropertiesFromResources("application");
         } catch (Exception ex) {
-          throw new RuntimeException("Error loading configuration: " + ex.getMessage(), ex);
+            throw new RuntimeException("Error loading configuration: " + ex.getMessage(), ex);
         }
 
         bind(FilenameFilter.class).to(NoFilenameFilter.class);
@@ -74,6 +74,6 @@ public class ServerModule extends AbstractModule {
 
         // access logger, including request ID generator
         bind(AccessLogPublisher.class).toInstance(new AccessLogPublisher("ACCESS",
-                (channel, httpRequest) -> ClientRequestReceiver.getRequestFromChannel(channel).getContext().getUUID()));
+            (channel, httpRequest) -> ClientRequestReceiver.getRequestFromChannel(channel).getContext().getUUID()));
     }
 }

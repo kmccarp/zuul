@@ -339,13 +339,13 @@ class IntegrationTest {
     void blockRequestWithMultipleHostHeaders(final String description, final OkHttpClient okHttp, final boolean requestBodyBuffering, final boolean responseBodyBuffering) throws Exception {
         final WireMock wireMock = wmRuntimeInfo.getWireMock();
         wireMock.register(
-                get(anyUrl())
-                        .willReturn(aResponse().withStatus(200)));
+            get(anyUrl())
+                .willReturn(aResponse().withStatus(200)));
 
         Request request = setupRequestBuilder(requestBodyBuffering, responseBodyBuffering).get()
-                .addHeader("Host", "aaa.example.com")
-                .addHeader("Host", "aaa.foobar.com")
-                .build();
+            .addHeader("Host", "aaa.example.com")
+            .addHeader("Host", "aaa.foobar.com")
+            .build();
         Response response = okHttp.newCall(request).execute();
         assertThat(response.code()).isEqualTo(500);
         verify(0, anyRequestedFor(anyUrl()));
@@ -420,12 +420,12 @@ class IntegrationTest {
         final String expectedResponseBody = TestUtil.COMPRESSIBLE_CONTENT;
         final WireMock wireMock = wmRuntimeInfo.getWireMock();
         wireMock.register(
-                get(anyUrl())
-                        .willReturn(
-                                aResponse()
-                                        .withStatus(200)
-                                        .withBody(expectedResponseBody)
-                                        .withHeader("Content-Type", TestUtil.COMPRESSIBLE_CONTENT_TYPE)));
+            get(anyUrl())
+                .willReturn(
+                    aResponse()
+                        .withStatus(200)
+                        .withBody(expectedResponseBody)
+                        .withHeader("Content-Type", TestUtil.COMPRESSIBLE_CONTENT_TYPE)));
 
         URL url = new URL(zuulBaseUri);
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -441,7 +441,7 @@ class IntegrationTest {
         DirectDecompress decompressResult = DirectDecompress.decompress(compressedData);
         assertEquals(DecoderJNI.Status.DONE, decompressResult.getResultStatus());
         assertEquals("Hello Hello Hello Hello Hello",
-                new String(decompressResult.getDecompressedData(), TestUtil.CHARSET));
+            new String(decompressResult.getDecompressedData(), TestUtil.CHARSET));
 
         inputStream.close();
         connection.disconnect();
