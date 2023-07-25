@@ -47,14 +47,14 @@ public final class SessionContext extends HashMap<String, Object> implements Clo
     private static final int INITIAL_SIZE =
             DynamicPropertyFactory.getInstance().getIntProperty("com.netflix.zuul.context.SessionContext.initialSize", 60).get();
 
-    private boolean brownoutMode = false;
-    private boolean shouldStopFilterProcessing = false;
-    private boolean shouldSendErrorResponse = false;
-    private boolean errorResponseSent = false;
-    private boolean debugRouting = false;
-    private boolean debugRequest = false;
-    private boolean debugRequestHeadersOnly = false;
-    private boolean cancelled = false;
+    private boolean brownoutMode;
+    private boolean shouldStopFilterProcessing;
+    private boolean shouldSendErrorResponse;
+    private boolean errorResponseSent;
+    private boolean debugRouting;
+    private boolean debugRequest;
+    private boolean debugRequestHeadersOnly;
+    private boolean cancelled;
 
     private static final String KEY_UUID = "_uuid";
     private static final String KEY_VIP = "routeVIP";
@@ -266,8 +266,11 @@ public final class SessionContext extends HashMap<String, Object> implements Clo
      *
      */
     public void set(String key, Object value) {
-        if (value != null) put(key, value);
-        else remove(key);
+        if (value != null) {
+            put(key, value);
+        } else {
+            remove(key);
+        }
     }
 
     public String getUUID()
@@ -384,7 +387,9 @@ public final class SessionContext extends HashMap<String, Object> implements Clo
      */
     public void addFilterExecutionSummary(String name, String status, long time) {
         StringBuilder sb = getFilterExecutionSummary();
-        if (sb.length() > 0) sb.append(", ");
+        if (sb.length() > 0) {
+            sb.append(", ");
+        }
         sb.append(name).append('[').append(status).append(']').append('[').append(time).append("ms]");
     }
 

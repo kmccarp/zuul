@@ -45,7 +45,7 @@ public class MaxInboundConnectionsHandler extends ChannelInboundHandlerAdapter
 
     private static final Logger LOG = LoggerFactory.getLogger(MaxInboundConnectionsHandler.class);
 
-    private final static AtomicInteger connections = new AtomicInteger(0);
+    private static final AtomicInteger connections = new AtomicInteger(0);
     private final Counter connectionThrottled;
     private final int maxConnections;
 

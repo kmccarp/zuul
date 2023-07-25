@@ -14,7 +14,7 @@
  *      limitations under the License.
  */
 
-package com.netflix.zuul.scriptManager;
+package com.netflix.zuul.scriptmanager;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;

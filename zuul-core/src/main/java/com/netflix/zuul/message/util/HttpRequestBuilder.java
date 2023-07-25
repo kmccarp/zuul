@@ -41,15 +41,15 @@ import java.util.Objects;
  * @since 5/11/21
  */
 public final class HttpRequestBuilder {
-    private SessionContext sessionContext;
-    private String protocol;
+    private final SessionContext sessionContext;
+    private final String protocol;
     private String method;
     private String path;
     private HttpQueryParams queryParams;
     private Headers headers;
-    private String clientIp;
-    private String scheme;
-    private int port;
+    private final String clientIp;
+    private final String scheme;
+    private final int port;
     private String serverName;
     private boolean isBuilt;
 

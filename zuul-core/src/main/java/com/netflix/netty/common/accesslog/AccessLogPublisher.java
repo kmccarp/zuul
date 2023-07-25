@@ -32,14 +32,14 @@ import java.util.function.BiFunction;
 
 public class AccessLogPublisher
 {
-    private final static char DELIM = '\t';
-    private final static DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
+    private static final char DELIM = '\t';
+    private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
-    private final static List<String> LOG_REQ_HEADERS =
+    private static final List<String> LOG_REQ_HEADERS =
             new DynamicStringListProperty("zuul.access.log.requestheaders", "host,x-forwarded-for,x-forwarded-proto,x-forwarded-host,x-forwarded-port,user-agent").get();
-    private final static List<String> LOG_RESP_HEADERS =
+    private static final List<String> LOG_RESP_HEADERS =
             new DynamicStringListProperty("zuul.access.log.responseheaders", "server,via,content-type").get();
-    private final static DynamicIntProperty URI_LENGTH_LIMIT =
+    private static final DynamicIntProperty URI_LENGTH_LIMIT =
             new DynamicIntProperty("zuul.access.log.uri.length.limit", Integer.MAX_VALUE);
 
     private final Logger logger;
@@ -123,6 +123,6 @@ public class AccessLogPublisher
     String headerAsString(HttpHeaders headers, String headerName)
     {
         List<String> values = headers.getAll(headerName);
-        return (values.size() == 0) ? "-" : String.join(",", values);
+        return (values.isEmpty()) ? "-" : String.join(",", values);
     }
 }
