@@ -58,8 +58,7 @@ public class PushConnectionRegistry {
     }
 
     public PushConnection remove(final String clientId) {
-        final PushConnection pc = clientPushConnectionMap.remove(clientId);
-        return pc;
+        return clientPushConnectionMap.remove(clientId);
     }
 
     public int size() {

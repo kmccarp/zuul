@@ -21,7 +21,7 @@ package com.netflix.zuul.constants;
  * Date: 5/15/13
  * Time: 4:38 PM
  */
-public class ZuulHeaders {
+public final class ZuulHeaders {
 
     /* Standard headers */
 

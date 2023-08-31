@@ -334,7 +334,7 @@ public class Server
         private Class<? extends ServerChannel> channelType;
         private Map<ChannelOption<?>, ?> transportChannelOptions;
 
-        private volatile boolean stopped = false;
+        private volatile boolean stopped;
 
         private ServerGroup(String name, int acceptorThreads, int workerThreads, EventLoopGroupMetrics eventLoopGroupMetrics) {
             this.name = name;
@@ -419,7 +419,7 @@ public class Server
             postEventLoopCreationHook(clientToProxyBossPool, clientToProxyWorkerPool);
         }
 
-        synchronized private void stop()
+        private synchronized void stop()
         {
             LOG.info("Shutting down");
             if (stopped) {

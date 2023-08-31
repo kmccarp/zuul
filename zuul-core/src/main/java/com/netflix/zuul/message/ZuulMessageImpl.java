@@ -147,7 +147,7 @@ public class ZuulMessageImpl implements ZuulMessage
 
     @Override
     public byte[] getBody() {
-        if (bodyChunks.size() == 0) {
+        if (bodyChunks.isEmpty()) {
             return null;
         }
 
