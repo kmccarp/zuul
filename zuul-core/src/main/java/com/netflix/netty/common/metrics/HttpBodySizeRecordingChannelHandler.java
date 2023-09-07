@@ -125,8 +125,8 @@ public final class HttpBodySizeRecordingChannelHandler {
 
     private static class State
     {
-        long inboundBodySize = 0;
-        long outboundBodySize = 0;
+        long inboundBodySize;
+        long outboundBodySize;
     }
     
     static class InboundBodySizeProvider implements Provider<Long>

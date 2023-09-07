@@ -60,7 +60,7 @@ public class StatusCategoryUtils {
     }
 
     public static boolean isResponseHttpErrorStatus(int status) {
-        return (status < 100 || status >= 500);
+        return status < 100 || status >= 500;
     }
 
     public static void storeStatusCategoryIfNotAlreadyFailure(
