@@ -255,7 +255,9 @@ public class ProxyEndpoint extends SyncZuulFilterAdapter<HttpRequestMessage, Htt
         }
 
         if (currentRequestStat != null) {
-            if (error) currentRequestStat.generalError();
+            if (error) {
+                currentRequestStat.generalError();
+            }
         }
 
         // Publish each of the request stats (ie. one for each attempt).
@@ -271,7 +273,7 @@ public class ProxyEndpoint extends SyncZuulFilterAdapter<HttpRequestMessage, Htt
             }
         }
 
-        if ((error) && (origCh != null)) {
+        if (error && (origCh != null)) {
             origCh.close();
         }
     }
@@ -570,7 +572,7 @@ public class ProxyEndpoint extends SyncZuulFilterAdapter<HttpRequestMessage, Htt
     }
 
     private static void writeBufferedBodyContent(final HttpRequestMessage zuulRequest, final Channel channel) {
-        zuulRequest.getBodyContents().forEach((chunk) -> {
+        zuulRequest.getBodyContents().forEach(chunk -> {
             channel.write(chunk.retain());
         });
     }

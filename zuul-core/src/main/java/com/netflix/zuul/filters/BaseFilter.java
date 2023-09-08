@@ -110,7 +110,7 @@ public abstract class BaseFilter<I extends ZuulMessage, O extends ZuulMessage> i
     @Override
     public String toString()
     {
-        return String.valueOf(filterType()) + ":" + String.valueOf(filterName());
+        return String.valueOf(filterType()) + ":" + filterName();
     }
 
     @Override
