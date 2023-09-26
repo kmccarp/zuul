@@ -45,9 +45,9 @@ public class PatternListStringProperty extends DerivedStringProperty<List<Patter
                 } catch (Exception e) {
                     LOG.error(
                             "Error parsing regex pattern list from property! name = {}, value = {}, pattern = {}",
-                            String.valueOf(this.getName()),
+                            this.getName(),
                             String.valueOf(this.getValue()),
-                            String.valueOf(value));
+                            value);
                 }
             }
         }

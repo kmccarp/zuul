@@ -361,7 +361,7 @@ public class CurrentPassport {
     @Override
     public String toString() {
         try (Unlocker ignored = lock()) {
-            long startTime = history.size() > 0 ? firstTime() : 0;
+            long startTime = !history.isEmpty() ? firstTime() : 0;
             long now = now();
 
             StringBuilder sb = new StringBuilder();
@@ -400,8 +400,8 @@ public class CurrentPassport {
                     Matcher stateMatch = ptnState.matcher(stateStr);
                     if (stateMatch.matches()) {
                         String stateName = stateMatch.group(2);
-                        if (stateName.equals("NOW")) {
-                            long startTime = passport.history.size() > 0 ? passport.firstTime() : 0;
+                        if ("NOW".equals(stateName)) {
+                            long startTime = !passport.history.isEmpty() ? passport.firstTime() : 0;
                             long now = Long.parseLong(stateMatch.group(1)) + startTime;
                             ticker.setNow(now);
                         } else {

@@ -84,7 +84,7 @@ public class Debug {
     public static List<String> getRoutingDebug(SessionContext ctx) {
         List<String> rd = (List<String>) ctx.get("routingDebug");
         if (rd == null) {
-            rd = new ArrayList<String>();
+            rd = new ArrayList<>();
             ctx.set("routingDebug", rd);
         }
         return rd;
@@ -106,7 +106,7 @@ public class Debug {
     public static List<String> getRequestDebug(SessionContext ctx) {
         List<String> rd = (List<String>) ctx.get("requestDebug");
         if (rd == null) {
-            rd = new ArrayList<String>();
+            rd = new ArrayList<>();
             ctx.set("requestDebug", rd);
         }
         return rd;
@@ -127,7 +127,7 @@ public class Debug {
         Iterator<String> it = context.keySet().iterator();
         String key = it.next();
         while (key != null) {
-            if ((!key.equals("routingDebug") && !key.equals("requestDebug"))) {
+            if (!"routingDebug".equals(key) && !"requestDebug".equals(key)) {
                 Object newValue = context.get(key);
                 Object oldValue = copy.get(key);
                 if (!(newValue instanceof ReferenceCounted) && !(oldValue instanceof ReferenceCounted)) {

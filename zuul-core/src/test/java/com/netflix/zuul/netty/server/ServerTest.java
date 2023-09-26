@@ -67,7 +67,7 @@ class ServerTest {
     void getListeningSockets() throws Exception {
         ServerStatusManager ssm = mock(ServerStatusManager.class);
         Map<NamedSocketAddress, ChannelInitializer<?>> initializers = new HashMap<>();
-        final List<NioSocketChannel> nioChannels = Collections.synchronizedList(new ArrayList<NioSocketChannel>());
+        final List<NioSocketChannel> nioChannels = Collections.synchronizedList(new ArrayList<>());
         ChannelInitializer<Channel> init = new ChannelInitializer<Channel>() {
             @Override
             protected void initChannel(final Channel ch) {

@@ -135,6 +135,6 @@ public class AccessLogPublisher {
 
     String headerAsString(HttpHeaders headers, String headerName) {
         List<String> values = headers.getAll(headerName);
-        return (values.size() == 0) ? "-" : String.join(",", values);
+        return (values.isEmpty()) ? "-" : String.join(",", values);
     }
 }

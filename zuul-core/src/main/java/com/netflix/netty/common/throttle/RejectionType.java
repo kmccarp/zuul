@@ -39,5 +39,5 @@ public enum RejectionType {
      * throttling handling, where the response may need to be handled by the filter chain.  It is not expected that the
      * request will be proxied.
      */
-    ALLOW_THEN_CLOSE;
+    ALLOW_THEN_CLOSE
 }

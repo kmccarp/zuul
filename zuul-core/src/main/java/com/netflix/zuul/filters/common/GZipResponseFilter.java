@@ -46,7 +46,7 @@ import io.netty.handler.codec.http.LastHttpContent;
  */
 @Filter(order = 110, type = FilterType.OUTBOUND)
 public class GZipResponseFilter extends HttpOutboundSyncFilter {
-    private static DynamicStringSetProperty GZIPPABLE_CONTENT_TYPES = new DynamicStringSetProperty(
+    private static DynamicStringSetProperty gzippableContentTypes = new DynamicStringSetProperty(
             "zuul.gzip.contenttypes",
             "text/html,application/x-javascript,text/css,application/javascript,text/javascript,text/plain,text/xml,"
                     + "application/json,application/vnd.ms-fontobject,application/x-font-opentype,application/x-font-truetype,"
@@ -121,7 +121,7 @@ public class GZipResponseFilter extends HttpOutboundSyncFilter {
             if (charsetIndex > 0) {
                 ct = ct.substring(0, charsetIndex);
             }
-            return GZIPPABLE_CONTENT_TYPES.get().contains(ct.toLowerCase());
+            return gzippableContentTypes.get().contains(ct.toLowerCase());
         }
         return false;
     }

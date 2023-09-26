@@ -47,14 +47,14 @@ public final class SessionContext extends HashMap<String, Object> implements Clo
             .getIntProperty("com.netflix.zuul.context.SessionContext.initialSize", 60)
             .get();
 
-    private boolean brownoutMode = false;
-    private boolean shouldStopFilterProcessing = false;
-    private boolean shouldSendErrorResponse = false;
-    private boolean errorResponseSent = false;
-    private boolean debugRouting = false;
-    private boolean debugRequest = false;
-    private boolean debugRequestHeadersOnly = false;
-    private boolean cancelled = false;
+    private boolean brownoutMode;
+    private boolean shouldStopFilterProcessing;
+    private boolean shouldSendErrorResponse;
+    private boolean errorResponseSent;
+    private boolean debugRouting;
+    private boolean debugRequest;
+    private boolean debugRequestHeadersOnly;
+    private boolean cancelled;
 
     private static final String KEY_UUID = "_uuid";
     private static final String KEY_VIP = "routeVIP";

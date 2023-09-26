@@ -55,19 +55,19 @@ public class StatsManager {
 
     @VisibleForTesting
     final ConcurrentMap<String, ConcurrentHashMap<Integer, RouteStatusCodeMonitor>> routeStatusMap =
-            new ConcurrentHashMap<String, ConcurrentHashMap<Integer, RouteStatusCodeMonitor>>();
+            new ConcurrentHashMap<>();
 
     private final ConcurrentMap<String, NamedCountingMonitor> namedStatusMap =
-            new ConcurrentHashMap<String, NamedCountingMonitor>();
+            new ConcurrentHashMap<>();
 
     private final ConcurrentMap<String, NamedCountingMonitor> hostCounterMap =
-            new ConcurrentHashMap<String, NamedCountingMonitor>();
+            new ConcurrentHashMap<>();
 
     private final ConcurrentMap<String, NamedCountingMonitor> protocolCounterMap =
-            new ConcurrentHashMap<String, NamedCountingMonitor>();
+            new ConcurrentHashMap<>();
 
     private final ConcurrentMap<String, NamedCountingMonitor> ipVersionCounterMap =
-            new ConcurrentHashMap<String, NamedCountingMonitor>();
+            new ConcurrentHashMap<>();
 
     protected static StatsManager INSTANCE = new StatsManager();
 
@@ -99,7 +99,7 @@ public class StatsManager {
     }
 
     @VisibleForTesting
-    static final String hostKey(String host) {
+    static String hostKey(String host) {
         try {
             final Matcher m = HOST_PATTERN.matcher(host);
 
@@ -127,7 +127,7 @@ public class StatsManager {
         }
     }
 
-    private static final String protocolKey(String proto) {
+    private static String protocolKey(String proto) {
         return String.format("protocol_%s", proto);
     }
 
@@ -178,12 +178,12 @@ public class StatsManager {
     }
 
     @VisibleForTesting
-    static final boolean isIPv6(String ip) {
+    static boolean isIPv6(String ip) {
         return ip.split(":").length == 8;
     }
 
     @VisibleForTesting
-    static final String extractClientIpFromXForwardedFor(String xForwardedFor) {
+    static String extractClientIpFromXForwardedFor(String xForwardedFor) {
         return xForwardedFor.split(",")[0];
     }
 
@@ -247,7 +247,7 @@ public class StatsManager {
         route = route.replace("/", "_");
         ConcurrentHashMap<Integer, RouteStatusCodeMonitor> statsMap = routeStatusMap.get(route);
         if (statsMap == null) {
-            statsMap = new ConcurrentHashMap<Integer, RouteStatusCodeMonitor>();
+            statsMap = new ConcurrentHashMap<>();
             routeStatusMap.putIfAbsent(route, statsMap);
         }
         RouteStatusCodeMonitor sd = statsMap.get(statusCode);

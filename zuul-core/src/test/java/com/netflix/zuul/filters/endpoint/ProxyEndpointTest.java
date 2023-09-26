@@ -80,7 +80,7 @@ class ProxyEndpointTest {
 
         // move the body readerIndex to the end to mimic nettys behavior after writing to the origin channel
         request.getBodyContents()
-                .forEach((b) -> b.content().readerIndex(b.content().capacity()));
+                .forEach(b -> b.content().readerIndex(b.content().capacity()));
 
         HttpResponse response = mock(HttpResponse.class);
         when(response.status()).thenReturn(new HttpResponseStatus(503, "Retry"));
