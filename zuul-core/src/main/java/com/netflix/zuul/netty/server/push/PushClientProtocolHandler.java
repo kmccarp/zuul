@@ -28,7 +28,7 @@ public class PushClientProtocolHandler extends ChannelInboundHandlerAdapter {
     protected PushUserAuth authEvent;
 
     protected boolean isAuthenticated() {
-        return (authEvent != null && authEvent.isSuccess());
+        return authEvent != null && authEvent.isSuccess();
     }
 
     @Override

@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class CloseOnIdleStateHandlerTest {
 
-    private Registry registry = new DefaultRegistry();
+    private final Registry registry = new DefaultRegistry();
     private Id counterId;
     private final String listener = "test-idle-state";
 

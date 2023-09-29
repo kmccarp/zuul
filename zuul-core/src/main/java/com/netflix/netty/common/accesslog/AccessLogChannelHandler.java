@@ -133,7 +133,7 @@ public final class AccessLogChannelHandler {
         HttpRequest request;
         HttpResponse response;
         long startTimeNs;
-        int requestBodySize = 0;
-        int responseBodySize = 0;
+        int requestBodySize;
+        int responseBodySize;
     }
 }

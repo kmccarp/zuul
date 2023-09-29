@@ -91,13 +91,13 @@ public class HttpRequestMessageImpl implements HttpRequestMessage {
     private String serverName;
     private SocketAddress clientRemoteAddress;
 
-    private HttpRequestInfo inboundRequest = null;
-    private Cookies parsedCookies = null;
+    private HttpRequestInfo inboundRequest;
+    private Cookies parsedCookies;
 
     // These attributes are populated only if immutable=true.
-    private String reconstructedUri = null;
-    private String pathAndQuery = null;
-    private String infoForLogging = null;
+    private String reconstructedUri;
+    private String pathAndQuery;
+    private String infoForLogging;
 
     private static final SocketAddress UNDEFINED_CLIENT_DEST_ADDRESS = new SocketAddress() {
         @Override
@@ -315,7 +315,7 @@ public class HttpRequestMessageImpl implements HttpRequestMessage {
     }
 
     protected String generatePathAndQuery() {
-        if (queryParams != null && queryParams.entries().size() > 0) {
+        if (queryParams != null && !queryParams.entries().isEmpty()) {
             return getPath() + "?" + queryParams.toEncodedString();
         } else {
             return getPath();

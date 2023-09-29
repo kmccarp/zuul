@@ -54,7 +54,7 @@ class Http2OrHttpHandlerTest {
         final Http2OrHttpHandler http2OrHttpHandler = new Http2OrHttpHandler(
                 new Http2StreamInitializer(
                         channel,
-                        (x) -> {},
+                        x -> {},
                         http2MetricsChannelHandlers,
                         connectionCloseHandler,
                         connectionExpiryHandler),

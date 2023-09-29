@@ -66,7 +66,7 @@ public class AccessLogPublisher {
         StringBuilder sb = new StringBuilder();
 
         String dateTimeStr = dateTime != null ? dateTime.format(DATE_TIME_FORMATTER) : "-----T-:-:-";
-        String remoteIpStr = (remoteIp != null && !remoteIp.isEmpty()) ? remoteIp : "-";
+        String remoteIpStr = remoteIp != null && !remoteIp.isEmpty() ? remoteIp : "-";
         String port = localPort != null ? localPort.toString() : "-";
         String method = request != null ? request.method().toString().toUpperCase() : "-";
         String uri = request != null ? request.uri() : "-";
@@ -85,11 +85,11 @@ public class AccessLogPublisher {
         requestId = requestId != null ? requestId : "-";
 
         // Convert duration to microseconds.
-        String durationStr = (durationNs != null && durationNs > 0) ? String.valueOf(durationNs / 1000) : "-";
+        String durationStr = durationNs != null && durationNs > 0 ? String.valueOf(durationNs / 1000) : "-";
 
-        String requestBodySizeStr = (requestBodySize != null && requestBodySize > 0) ? requestBodySize.toString() : "-";
+        String requestBodySizeStr = requestBodySize != null && requestBodySize > 0 ? requestBodySize.toString() : "-";
         String responseBodySizeStr =
-                (responseBodySize != null && responseBodySize > 0) ? responseBodySize.toString() : "-";
+                responseBodySize != null && responseBodySize > 0 ? responseBodySize.toString() : "-";
 
         // Build the line.
         sb.append(dateTimeStr)
@@ -135,6 +135,6 @@ public class AccessLogPublisher {
 
     String headerAsString(HttpHeaders headers, String headerName) {
         List<String> values = headers.getAll(headerName);
-        return (values.size() == 0) ? "-" : String.join(",", values);
+        return values.isEmpty() ? "-" : String.join(",", values);
     }
 }

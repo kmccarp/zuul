@@ -53,7 +53,7 @@ public class HttpChannelFlags {
         public boolean get(Channel ch) {
             Attribute<Boolean> attr = ch.attr(attributeKey);
             Boolean value = attr.get();
-            return (value == null) ? false : value;
+            return value == null ? false : value;
         }
 
         public boolean get(ChannelHandlerContext ctx) {

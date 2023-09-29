@@ -73,7 +73,7 @@ public class PushRegistrationHandler extends ChannelInboundHandlerAdapter {
     }
 
     protected final boolean isAuthenticated() {
-        return (authEvent != null && authEvent.isSuccess());
+        return authEvent != null && authEvent.isSuccess();
     }
 
     private void tearDown() {
