@@ -151,7 +151,7 @@ public class FilterFileManager {
      * @return
      */
     List<File> getFiles() {
-        List<File> list = new ArrayList<File>();
+        List<File> list = new ArrayList<>();
         for (String sDirectory : config.getDirectories()) {
             if (sDirectory != null) {
                 File directory = getDirectory(sDirectory);

@@ -36,7 +36,7 @@ public class Tracer extends TracerFactory {
         return new SpectatorTracer(name);
     }
 
-    class SpectatorTracer implements com.netflix.zuul.monitoring.Tracer {
+    final class SpectatorTracer implements com.netflix.zuul.monitoring.Tracer {
 
         private String name;
         private final long start;
@@ -60,11 +60,11 @@ public class Tracer extends TracerFactory {
     }
 
     private static String getHostName() {
-        return (loadAddress() != null) ? loadAddress().getHostName() : "unkownHost";
+        return loadAddress() != null ? loadAddress().getHostName() : "unkownHost";
     }
 
     private static String getIp() {
-        return (loadAddress() != null) ? loadAddress().getHostAddress() : "unknownHost";
+        return loadAddress() != null ? loadAddress().getHostAddress() : "unknownHost";
     }
 
     private static InetAddress loadAddress() {
