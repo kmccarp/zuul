@@ -569,7 +569,7 @@ class HeadersTest {
         headers.add("COOkie", "frizzle=frazzle");
         headers.add("Soup", "salad");
 
-        boolean removed = headers.removeIf(entry -> entry.getKey().getName().equals("Cookie"));
+        boolean removed = headers.removeIf(entry -> "Cookie".equals(entry.getKey().getName()));
 
         assertTrue(removed);
         Truth.assertThat(headers.getAll("cOoKie")).containsExactly("frizzle=frazzle");
@@ -589,7 +589,7 @@ class HeadersTest {
         Truth.assertThat(keySet)
                 .containsExactly(new HeaderName("COOKie"), new HeaderName("Soup"), new HeaderName("Via"));
         for (HeaderName headerName : keySet) {
-            if (headerName.getName().equals("COOKie")) {
+            if ("COOKie".equals(headerName.getName())) {
                 return;
             }
         }

@@ -173,7 +173,7 @@ public class ZuulEndPointRunner extends BaseZuulFilterRunner<HttpRequestMessage,
             zuulCtx.setShouldSendErrorResponse(false);
             zuulCtx.setErrorResponseSent(true);
             final String errEndPointName = zuulCtx.getErrorEndpoint();
-            return (Strings.isNullOrEmpty(errEndPointName)) ? DEFAULT_ERROR_ENDPOINT.get() : errEndPointName;
+            return Strings.isNullOrEmpty(errEndPointName) ? DEFAULT_ERROR_ENDPOINT.get() : errEndPointName;
         } else {
             return zuulCtx.getEndpoint();
         }

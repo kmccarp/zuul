@@ -23,7 +23,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.UUID;
 
-public class TestUtil {
+public final class TestUtil {
     private TestUtil() {}
 
     public static final Charset CHARSET = StandardCharsets.UTF_8;

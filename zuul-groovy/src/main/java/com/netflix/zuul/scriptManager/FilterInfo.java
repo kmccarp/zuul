@@ -31,7 +31,7 @@ public class FilterInfo implements Comparable<FilterInfo> {
     private final String filter_name;
     private final String filter_code;
     private final FilterType filter_type;
-    private final String filter_disablePropertyName;
+    private final String filterDisablePropertyName;
     private final String filter_order;
     private final String application_name;
     private int revision;
@@ -44,20 +44,20 @@ public class FilterInfo implements Comparable<FilterInfo> {
      * Constructor
      */
     public FilterInfo(
-            String filter_id,
-            String filter_code,
-            FilterType filter_type,
-            String filter_name,
+            String filterId,
+            String filterCode,
+            FilterType filterType,
+            String filterName,
             String disablePropertyName,
-            String filter_order,
-            String application_name) {
-        this.filter_id = filter_id;
-        this.filter_code = filter_code;
-        this.filter_type = filter_type;
-        this.filter_name = filter_name;
-        this.filter_disablePropertyName = disablePropertyName;
-        this.filter_order = filter_order;
-        this.application_name = application_name;
+            String filterOrder,
+            String applicationName) {
+        this.filter_id = filterId;
+        this.filter_code = filterCode;
+        this.filter_type = filterType;
+        this.filter_name = filterName;
+        this.filterDisablePropertyName = disablePropertyName;
+        this.filter_order = filterOrder;
+        this.application_name = applicationName;
         isActive.set(false);
         isCanary.set(false);
     }
@@ -82,7 +82,7 @@ public class FilterInfo implements Comparable<FilterInfo> {
      * @return the name of the property to disable the filter.
      */
     public String getFilterDisablePropertyName() {
-        return filter_disablePropertyName;
+        return filterDisablePropertyName;
     }
 
     /**
@@ -134,7 +134,7 @@ public class FilterInfo implements Comparable<FilterInfo> {
         this.filter_name = filter_name;
         this.filter_type = filter_type;
         this.filter_order = filter_order;
-        this.filter_disablePropertyName = disablePropertyName;
+        this.filterDisablePropertyName = disablePropertyName;
         this.application_name = application_name;
     }
 
@@ -224,14 +224,10 @@ public class FilterInfo implements Comparable<FilterInfo> {
         if (filter_type != null ? !filter_type.equals(that.filter_type) : that.filter_type != null) {
             return false;
         }
-        if (isActive != null ? !(isActive.get() == that.isActive.get()) : that.isActive != null) {
+        if (isActive != null ? isActive.get() != that.isActive.get() : that.isActive != null) {
             return false;
         }
-        if (isCanary != null ? !(isCanary.get() == that.isCanary.get()) : that.isCanary != null) {
-            return false;
-        }
-
-        return true;
+        return !(isCanary != null ? isCanary.get() != that.isCanary.get() : that.isCanary != null);
     }
 
     @Override
