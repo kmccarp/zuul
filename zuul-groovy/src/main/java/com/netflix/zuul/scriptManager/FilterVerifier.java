@@ -51,11 +51,11 @@ public class FilterVerifier {
         checkZuulFilterInstance(instance);
         BaseFilter filter = (BaseFilter) instance;
 
-        String filter_id = FilterInfo.buildFilterID(
+        String filterId = FilterInfo.buildFilterID(
                 ZuulApplicationInfo.getApplicationName(), filter.filterType(), groovyClass.getSimpleName());
 
         return new FilterInfo(
-                filter_id,
+                filterId,
                 sFilterCode,
                 filter.filterType(),
                 groovyClass.getSimpleName(),

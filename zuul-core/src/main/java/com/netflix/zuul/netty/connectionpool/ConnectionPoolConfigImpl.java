@@ -37,14 +37,14 @@ public class ConnectionPoolConfigImpl implements ConnectionPoolConfig {
     private final OriginName originName;
     private final IClientConfig clientConfig;
 
-    private final CachedDynamicIntProperty MAX_REQUESTS_PER_CONNECTION;
-    private final CachedDynamicIntProperty PER_SERVER_WATERLINE;
+    private static final CachedDynamicIntProperty MAX_REQUESTS_PER_CONNECTION;
+    private static final CachedDynamicIntProperty PER_SERVER_WATERLINE;
 
-    private final CachedDynamicBooleanProperty SOCKET_KEEP_ALIVE;
-    private final CachedDynamicBooleanProperty TCP_NO_DELAY;
-    private final CachedDynamicIntProperty WRITE_BUFFER_HIGH_WATER_MARK;
-    private final CachedDynamicIntProperty WRITE_BUFFER_LOW_WATER_MARK;
-    private final CachedDynamicBooleanProperty AUTO_READ;
+    private static final CachedDynamicBooleanProperty SOCKET_KEEP_ALIVE;
+    private static final CachedDynamicBooleanProperty TCP_NO_DELAY;
+    private static final CachedDynamicIntProperty WRITE_BUFFER_HIGH_WATER_MARK;
+    private static final CachedDynamicIntProperty WRITE_BUFFER_LOW_WATER_MARK;
+    private static final CachedDynamicBooleanProperty AUTO_READ;
 
     public ConnectionPoolConfigImpl(final OriginName originName, IClientConfig clientConfig) {
         this.originName = Objects.requireNonNull(originName, "originName");

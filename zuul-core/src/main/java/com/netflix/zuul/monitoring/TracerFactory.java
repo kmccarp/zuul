@@ -23,15 +23,15 @@ package com.netflix.zuul.monitoring;
  */
 public abstract class TracerFactory {
 
-    private static TracerFactory INSTANCE;
+    private static TracerFactory instance;
 
     /**
      * sets a TracerFactory Implementation
      *
      * @param f a <code>TracerFactory</code> value
      */
-    public static final void initialize(TracerFactory f) {
-        INSTANCE = f;
+    public static void initialize(TracerFactory f) {
+        instance = f;
     }
 
     /**
@@ -39,11 +39,11 @@ public abstract class TracerFactory {
      *
      * @return a <code>TracerFactory</code> value
      */
-    public static final TracerFactory instance() {
-        if (INSTANCE == null) {
+    public static TracerFactory instance() {
+        if (instance == null) {
             throw new IllegalStateException(String.format("%s not initialized", TracerFactory.class.getSimpleName()));
         }
-        return INSTANCE;
+        return instance;
     }
 
     public abstract Tracer startMicroTracer(String name);

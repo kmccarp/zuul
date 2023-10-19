@@ -29,8 +29,8 @@ import java.util.Map;
  * Time: 12:04 AM
  */
 public class Cookies {
-    private Map<String, List<Cookie>> map = new HashMap<>();
-    private List<Cookie> all = new ArrayList<>();
+    private final Map<String, List<Cookie>> map = new HashMap<>();
+    private final List<Cookie> all = new ArrayList<>();
 
     public void add(Cookie cookie) {
         List<Cookie> existing = map.get(cookie.getName());
@@ -52,7 +52,7 @@ public class Cookies {
 
     public Cookie getFirst(String name) {
         List<Cookie> found = map.get(name);
-        if (found == null || found.size() == 0) {
+        if (found == null || found.isEmpty()) {
             return null;
         }
         return found.get(0);

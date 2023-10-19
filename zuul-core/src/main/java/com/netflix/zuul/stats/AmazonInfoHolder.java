@@ -22,11 +22,11 @@ import com.netflix.appinfo.AmazonInfo;
  *
  * @author mhawthorne
  */
-public class AmazonInfoHolder {
+public final class AmazonInfoHolder {
 
     private static final AmazonInfo INFO = AmazonInfo.Builder.newBuilder().autoBuild("eureka");
 
-    public static final AmazonInfo getInfo() {
+    public static AmazonInfo getInfo() {
         return INFO;
     }
 

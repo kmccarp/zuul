@@ -348,7 +348,7 @@ public class Server {
         private Class<? extends ServerChannel> channelType;
         private Map<ChannelOption<?>, ?> transportChannelOptions;
 
-        private volatile boolean stopped = false;
+        private volatile boolean stopped;
 
         private ServerGroup(
                 String name, int acceptorThreads, int workerThreads, EventLoopGroupMetrics eventLoopGroupMetrics) {

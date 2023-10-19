@@ -76,8 +76,8 @@ public abstract class BaseZuulFilterRunner<I extends ZuulMessage, O extends Zuul
     private final FilterUsageNotifier usageNotifier;
     private final FilterRunner<O, ? extends ZuulMessage> nextStage;
 
-    private final String RUNNING_FILTER_IDX_SESSION_CTX_KEY;
-    private final String AWAITING_BODY_FLAG_SESSION_CTX_KEY;
+    private static final String RUNNING_FILTER_IDX_SESSION_CTX_KEY;
+    private static final String AWAITING_BODY_FLAG_SESSION_CTX_KEY;
     private static final Logger logger = LoggerFactory.getLogger(BaseZuulFilterRunner.class);
 
     private static final CachedDynamicIntProperty FILTER_EXCESSIVE_EXEC_TIME =
@@ -96,7 +96,7 @@ public abstract class BaseZuulFilterRunner<I extends ZuulMessage, O extends Zuul
         this.filterExcessiveTimerId = registry.createId("zuul.request.timing.filterExcessive");
     }
 
-    public static final ChannelHandlerContext getChannelHandlerContext(final ZuulMessage mesg) {
+    public static ChannelHandlerContext getChannelHandlerContext(final ZuulMessage mesg) {
         return (ChannelHandlerContext)
                 checkNotNull(mesg.getContext().get(NETTY_SERVER_CHANNEL_HANDLER_CONTEXT), "channel handler context");
     }
@@ -209,7 +209,6 @@ public abstract class BaseZuulFilterRunner<I extends ZuulMessage, O extends Zuul
                 filterRunStatus = SKIPPED;
             }
 
-            ;
             try (TaskCloseable ignored2 = traceTask(filter, f -> f.filterName() + ".shouldSkipFilter")) {
                 if (shouldSkipFilter(inMesg, filter)) {
                     filterRunStatus = SKIPPED;
@@ -253,7 +252,7 @@ public abstract class BaseZuulFilterRunner<I extends ZuulMessage, O extends Zuul
                     outMesg = syncFilter.apply(inMesg);
                 }
                 recordFilterCompletion(SUCCESS, filter, startTime, inMesg, snapshot);
-                return (outMesg != null) ? outMesg : filter.getDefaultOutput(inMesg);
+                return outMesg != null ? outMesg : filter.getDefaultOutput(inMesg);
             }
 
             // async filter
@@ -303,14 +302,11 @@ public abstract class BaseZuulFilterRunner<I extends ZuulMessage, O extends Zuul
         if (zuulCtx.isCancelled()) {
             return true;
         }
-        if (!filter.shouldFilter(inMesg)) {
-            return true;
-        }
-        return false;
+        return !filter.shouldFilter(inMesg);
     }
 
     private boolean isMessageBodyReadyForFilter(final ZuulFilter filter, final I inMesg) {
-        return ((!filter.needsBodyBuffered(inMesg)) || (inMesg.hasCompleteBody()));
+        return (!filter.needsBodyBuffered(inMesg)) || (inMesg.hasCompleteBody());
     }
 
     protected O handleFilterException(final I inMesg, final ZuulFilter<I, O> filter, final Throwable ex) {
@@ -325,7 +321,7 @@ public abstract class BaseZuulFilterRunner<I extends ZuulMessage, O extends Zuul
     protected void recordFilterError(final I inMesg, final ZuulFilter<I, O> filter, final Throwable t) {
         // Add a log statement for this exception.
         final String errorMsg = "Filter Exception: filter=" + filter.filterName() + ", request-info="
-                + inMesg.getInfoForLogging() + ", msg=" + String.valueOf(t.getMessage());
+                + inMesg.getInfoForLogging() + ", msg=" + t.getMessage();
         if (t instanceof ZuulException && !((ZuulException) t).shouldLogAsError()) {
             logger.warn(errorMsg);
         } else {
@@ -402,8 +398,8 @@ public abstract class BaseZuulFilterRunner<I extends ZuulMessage, O extends Zuul
         } else if (zuulMesg instanceof HttpResponseMessage) {
             zuulReq = ((HttpResponseMessage) zuulMesg).getInboundRequest();
         }
-        final String path = (zuulReq != null) ? zuulReq.getPathAndQuery() : "-";
-        final String method = (zuulReq != null) ? zuulReq.getMethod() : "-";
+        final String path = zuulReq != null ? zuulReq.getPathAndQuery() : "-";
+        final String method = zuulReq != null ? zuulReq.getMethod() : "-";
         final String errMesg = "Error with filter: " + filterName + ", path: " + path + ", method: " + method;
         logger.error(errMesg, ex);
         getChannelHandlerContext(zuulMesg).fireExceptionCaught(ex);

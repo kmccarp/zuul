@@ -86,7 +86,7 @@ public class JsonUtility {
     /*
      * return a string like: "one","two","three"
      */
-    private static String stringArrayFromObjectArray(Object data[]) {
+    private static String stringArrayFromObjectArray(Object[] data) {
         StringBuilder arrayAsString = new StringBuilder();
         for (Object o : data) {
             if (arrayAsString.length() > 0) {
@@ -106,7 +106,7 @@ public class JsonUtility {
     private static class JsonDocument {
         StringBuilder json = new StringBuilder();
 
-        private boolean newGroup = false;
+        private boolean newGroup;
 
         public JsonDocument startGroup() {
             newGroup = true;

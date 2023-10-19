@@ -50,7 +50,7 @@ public class HttpHeaderNamesCache {
             if (isFull()) {
                 hn = new HeaderName(name);
             } else {
-                hn = cache.computeIfAbsent(name, (newName) -> new HeaderName(newName));
+                hn = cache.computeIfAbsent(name, newName -> new HeaderName(newName));
             }
         }
         return hn;

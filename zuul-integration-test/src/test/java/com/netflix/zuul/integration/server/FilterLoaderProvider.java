@@ -48,7 +48,6 @@ public class FilterLoaderProvider implements Provider<FilterLoader> {
 
     @Override
     public FilterLoader get() {
-        StaticFilterLoader loader = new StaticFilterLoader(new DefaultFilterFactory(), FILTER_TYPES);
-        return loader;
+        return new StaticFilterLoader(new DefaultFilterFactory(), FILTER_TYPES);
     }
 }

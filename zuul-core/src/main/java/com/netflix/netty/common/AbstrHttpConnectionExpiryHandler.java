@@ -44,8 +44,8 @@ public abstract class AbstrHttpConnectionExpiryHandler extends ChannelOutboundHa
     protected final long connectionStartTime;
     protected final long connectionExpiryTime;
 
-    protected int requestCount = 0;
-    protected int maxRequestsUnderBrownout = 0;
+    protected int requestCount;
+    protected int maxRequestsUnderBrownout;
 
     public AbstrHttpConnectionExpiryHandler(
             ConnectionCloseType connectionCloseType, int maxRequestsUnderBrownout, int maxRequests, int maxExpiry) {
